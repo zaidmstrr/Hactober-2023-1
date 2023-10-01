@@ -6,8 +6,7 @@ int main ()
     float dia,area;
     printf("Enter Radius:");
     scanf("%f", &radius);
-    
-    
+        
 
     dia = 2*radius;
     
