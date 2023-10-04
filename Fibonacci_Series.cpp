@@ -1,17 +1,18 @@
-#include <iostream>  
-using namespace std;  
-int main() 
-{  
-int n1=0,n2=1,n3,i,number;    
-cout<<"Enter the number of elements: ";    
-cin>>number;    
-cout<<n1<<" "<<n2<<" "; //printing 0 and 1    
-for(i=2;i<number;++i) //loop starts from 2 because 0 and 1 are already printed    
-  {    
-      n3=n1+n2;    
-      cout<<n3<<" ";    
-      n1=n2;    
-      n2=n3;    
-    }    
-return 0;  
-}  
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+    // enter the number of elements to be printed.
+    cout << "enter the number of elements: ";
+    cin >> n;
+ 
+    int x = 0,y = 1;
+    // while loop will run till we have printed the required number of elements of the series.
+    while(n--){
+        cout << y << ' ';
+        x += y;
+        swap(x,y);
+    }
+}
