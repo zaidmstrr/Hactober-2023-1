@@ -1,19 +1,19 @@
 #include<iostream>
 #include<math.h>
+#include<algorithm>
 using namespace std;
 void binary_to_decimal(){
     cout<<"Enter binary to convert it into number"<<endl;
     int n;
     cin>>n;
     int ans=0;
-    int i=0;
-    while(n!=0){
-        int digit=n%10;
-        if(digit==1){
-            ans=ans+pow(2,i);
+    int i = 1;
+    while(n>0){
+        if(n%10){
+            ans += i;
         }
+        i = i << 1;
         n=n/10;
-        i++;
     }
     cout<<"Answer is "<<ans<<endl;
 }
@@ -21,19 +21,22 @@ void decimal_to_binary(){
     cout<<"Enter number to convert it into binary"<<endl;
     int n;
     cin>>n;
-    int ans=0;
-    int i=0;
-    while(n!=0){
-        int bit=n&1;
-        ans=(bit*pow(10,i))+ans;
-        n=n>>1;
-        i++;
+    int ans = 0;
+    string t = ""; 
+    while(n > 0)
+    {
+        if(n&1){
+            t += '1';
+        }else{
+            t += '0';
+        }
+        n = n >> 1;
     }
+    reverse(t.begin(),t.end());
+    ans = stoi(t);
     cout<<"Answer is " <<ans<<endl;
 
 }
-
-
 int main(){
 
     cout<<"Welcome to binary and decimal converter Program"<<endl;
