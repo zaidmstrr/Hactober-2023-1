@@ -1,5 +1,6 @@
-// Problem: 
-// Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number. 
+
+// Problem: Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number. 
+
 
 // C++ program to print all primes smaller than or equal to 
 // n using Sieve of Eratosthenes 
