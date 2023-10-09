@@ -13,3 +13,4 @@
 3. Q3.cpp : SLIDING WINDOW MAXIMUM
 4. Q4.cpp : ROTTING ORANGES
 5. Q5.cpp : Shortest Path in Binary Matrix
+5. Q6.cpp : Circular Queue
