@@ -1,26 +1,32 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+// Problem: Given an array arr[] of size N. The task is to find the sum of the contiguous subarray within a arr[] with the largest sum. 
 
+// C++ program to print largest contiguous array sum
+#include <bits/stdc++.h>
 using namespace std;
 
-int maxSubArray(vector<int> &nums)
+int maxSubArraySum(int a[], int size)
 {
-    vector<int> curr(2), prev(2);
-    prev[0] = prev[1] = nums[0];
-    for (int i = 1; i < size(nums); i++)
-    {
-        curr[1] = max(nums[i], nums[i] + prev[1]);
-        curr[0] = max(prev[0], curr[1]);
-        prev = curr;
-    }
-    return prev[0];
+	int max_so_far = INT_MIN, max_ending_here = 0;
+
+	for (int i = 0; i < size; i++) {
+		max_ending_here = max_ending_here + a[i];
+		if (max_so_far < max_ending_here)
+			max_so_far = max_ending_here;
+
+		if (max_ending_here < 0)
+			max_ending_here = 0;
+	}
+	return max_so_far;
 }
 
+// Driver Code
 int main()
 {
-    vector<int> arr = {1, 2, 3, -7, 9, 2, -8};
-    int max_sum = maxSubArray(arr);
-    cout << "Maximum contiguous sum is " << max_sum;
-    return 0;
+	int a[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
+	int n = sizeof(a) / sizeof(a[0]);
+
+	// Function Call
+	int max_sum = maxSubArraySum(a, n);
+	cout << "Maximum contiguous sum is " << max_sum;
+	return 0;
 }
