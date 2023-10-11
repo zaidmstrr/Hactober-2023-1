@@ -1,0 +1,36 @@
+import org.tensorflow.SavedModelBundle;
+import org.tensorflow.Session;
+import org.tensorflow.Tensor;
+import org.tensorflow.TensorFlow;
+
+public class CurrencyDetector {
+
+    private SavedModelBundle model;
+
+    public CurrencyDetector(String modelPath) throws Exception {
+        this.model = SavedModelBundle.load(modelPath);
+    }
+
+    public boolean isRealCurrency(byte[] image) throws Exception {
+        Tensor<Float> inputTensor = Tensor.create(image);
+        Tensor<Float> outputTensor = this.model.session().runner().feed("input", inputTensor).fetch("output").run().get(0);
+
+        float[] output = outputTensor.copyToFloatArray();
+        float probability = output[0];
+
+        return probability > 0.5f;
+    }
+
+    public static void main(String[] args) throws Exception {
+        CurrencyDetector detector = new CurrencyDetector("/path/to/model");
+
+        // Load the image file.
+        byte[] image = Files.readAllBytes(Paths.get("/path/to/image.jpg"));
+
+        // Detect if the image is real currency.
+        boolean isRealCurrency = detector.isRealCurrency(image);
+
+        // Print the result.
+        System.out.println("Is the image real currency? " + isRealCurrency);
+    }
+}
