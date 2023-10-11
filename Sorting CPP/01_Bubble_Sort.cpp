@@ -8,6 +8,15 @@ Worst Time Complexity : O(n^2)
 Worst Space Complexity : O(1)
 */
 
+//Swap Function
+void swap(int *x, int *y){  
+    int temp;
+    temp=*x;
+    *x=*y;
+    *y=temp;
+}
+
+//Print Function
 void printArray(int A[], int n){
     for (int i = 0; i < n; i++)
     {
@@ -16,18 +25,21 @@ void printArray(int A[], int n){
     cout<<endl;
 }
 
+//Sort Function
 void bubbleSort(int A[], int n){
-    int temp;
+
     for (int i = 0; i < n-1; i++) 
     { 
+        bool flag = true;         //Break if already Sorted
         for (int j = 0; j <n-1-i ; j++) 
         {
             if(A[j]>A[j+1]){
-                temp = A[j];
-                A[j] = A[j+1];
-                A[j+1] = temp; 
+                flag = false;
+                swap(A[j],A[j+1]); // Using Swap Function
             }
-        }  
+        }
+        if(flag==true)
+            break;  
     } 
 }
  
