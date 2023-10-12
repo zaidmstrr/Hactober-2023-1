@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+struct Mango {
+    int weight;
+    string variety;
+};
+
+Mango calculateMangoProperties(const vector<Mango>& mangoes) {
+    if (mangoes.empty()) {
+        cout << "The list of mangoes is empty." << endl;
+        return Mango{-1, "", ""};
+    }
+
+    int totalWeight = 0;
+    int heaviestMangoWeight = mangoes[0].weight;
+    int lightestMangoWeight = mangoes[0].weight;
+    string heaviestMangoVariety = mangoes[0].variety;
+    string lightestMangoVariety = mangoes[0].variety;
+
+    for (const Mango& mango : mangoes) {
+        totalWeight += mango.weight;
+
+        if (mango.weight > heaviestMangoWeight) {
+            heaviestMangoWeight = mango.weight;
+            heaviestMangoVariety = mango.variety;
+        }
+
+        if (mango.weight < lightestMangoWeight) {
+            lightestMangoWeight = mango.weight;
+            lightestMangoVariety = mango.variety;
+        }
+    }
+
+    double averageWeight = static_cast<double>(totalWeight) / mangoes.size();
+
+    return Mango{totalWeight, heaviestMangoVariety, lightestMangoVariety};
+}
+
+int main() {
+    vector<Mango> mangoes = {{150, "Alphonso"}, {200, "Keitt"}, {120, "Ataulfo"}, {250, "Kent"}, {180, "Haden"}};
+    Mango result = calculateMangoProperties(mangoes);
+
+    if (result.weight != -1) {
+        cout << "Total Weight: " << result.weight << " grams" << endl;
+        cout << "Heaviest Mango: " << result.variety << " (" << result.weight << " grams)" << endl;
+        cout << "Lightest Mango: " << result.variety << " (" << result.weight << " grams)" << endl;
+        cout << "Average Weight: " << result.weight / mangoes.size() << " grams" << endl;
+    }
+
+    return 0;
+}
