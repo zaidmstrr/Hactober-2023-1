@@ -1,0 +1,18 @@
+#include <iostream>
+
+void towerOfHanoi(int n, char sourceRod, char auxiliaryRod, char destinationRod) {
+    if (n == 1) {
+        std::cout << "Move disk 1 from " << sourceRod << " to " << destinationRod << std::endl;
+        return;
+    }
+
+    towerOfHanoi(n - 1, sourceRod, destinationRod, auxiliaryRod);
+    std::cout << "Move disk " << n << " from " << sourceRod << " to " << destinationRod << std::endl;
+    towerOfHanoi(n - 1, auxiliaryRod, sourceRod, destinationRod);
+}
+
+int main() {
+    int n = 3;  // Change this to the number of disks you want to solve for
+    towerOfHanoi(n, 'A', 'B', 'C');
+    return 0;
+}
