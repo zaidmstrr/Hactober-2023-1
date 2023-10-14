@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-/*********************QUEUE USING LINKED LIST***************/
+
 struct QueueNode
 {
     int data;
@@ -15,63 +15,63 @@ struct QueueNode
 struct MyQueue {
     QueueNode *front;
     QueueNode *rear;
-    void push(int);
+    void push(int x);
     int pop();
-    MyQueue() {front = rear = NULL;}
+    MyQueue() { front = rear = NULL; }
 };
-void MyQueue:: push(int x)
+
+// Function to add an element to the rear of the queue.
+void MyQueue::push(int x)
 {
-        // Your Code
-        QueueNode* temp = new QueueNode(x);
-        if(front == NULL){
-           front = rear = temp;
-            return;
-          }
-        rear->next=temp;
-        rear=temp;
+    QueueNode* temp = new QueueNode(x);
+    if (front == NULL) {
+        front = rear = temp;
+    }
+    else {
+        rear->next = temp;
+        rear = temp;
+    }
 }
 
-//Function to pop front element from the queue.
-int MyQueue :: pop()
+// Function to remove and return the front element from the queue.
+int MyQueue::pop()
 {
-        // Your Code 
-        int val;
-         QueueNode* temp=front;
-        if(front==NULL){
-            return -1;
-        }
-       else {
-           front=front->next;
-           val= temp->data;
-           delete temp;
-           return val;
-       }
+    if (front == NULL) {
+        return -1; // Queue is empty
+    }
+
+    int val = front->data;
+    QueueNode* temp = front;
+    front = front->next;
+    delete temp; // Deallocate memory
+    return val;
 }
 
 int main()
 {
     int T;
-    cin>>T;
-    while(T--)
+    cin >> T;
+    while (T--)
     {
-        MyQueue *sq = new MyQueue();
+        MyQueue* sq = new MyQueue();
 
         int Q;
-        cin>>Q;
-        while(Q--){
-        int QueryType=0;
-        cin>>QueryType;
-        if(QueryType==1)
-        {
-            int a;
-            cin>>a;
-            sq->push(a);
-        }else if(QueryType==2){
-            cout<<sq->pop()<<" ";
-
+        cin >> Q;
+        while (Q--) {
+            int QueryType = 0;
+            cin >> QueryType;
+            if (QueryType == 1) {
+                int a;
+                cin >> a;
+                sq->push(a);
+            }
+            else if (QueryType == 2) {
+                cout << sq->pop() << " ";
+            }
         }
-        }
-        cout<<endl;
+        cout << endl;
     }
- }
 
+    return 0;
+}
+//optimal approach
