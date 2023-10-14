@@ -1,46 +1,37 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        vector<vector<int>>ans;
-        int flag=0;
-        if(root==NULL){
-            return ans;
+        vector<vector<int>> result;
+        if (root == nullptr) {
+            return result;
         }
-        queue<TreeNode*>q;
-        q.push(root);
-        while(!q.empty()){
-            int count=0;
-            vector<int>tmp;
-            int n=q.size();
-            for(int i=0;i<n;i++){
-                TreeNode* t=q.front();
-                q.pop();
-                tmp.push_back(t->val);
-                if(t->left){
-                    q.push(t->left);
+
+        stack<TreeNode*> currentLevel;
+        stack<TreeNode*> nextLevel;
+        bool leftToRight = true;
+        currentLevel.push(root);
+
+        while (!currentLevel.empty()) {
+            vector<int> levelValues;
+            while (!currentLevel.empty()) {
+                TreeNode* node = currentLevel.top();
+                currentLevel.pop();
+                levelValues.push_back(node->val);
+
+                if (leftToRight) {
+                    if (node->left) nextLevel.push(node->left);
+                    if (node->right) nextLevel.push(node->right);
+                } else {
+                    if (node->right) nextLevel.push(node->right);
+                    if (node->left) nextLevel.push(node->left);
                 }
-                if(t->right){
-                    q.push(t->right);
-                }    
             }
 
-            if(flag%2!=0){
-                reverse(tmp.begin(),tmp.end());
-            }
-            flag++;
-            ans.push_back(tmp);
+            result.push_back(levelValues);
+            swap(currentLevel, nextLevel);
+            leftToRight = !leftToRight;
         }
-        return ans;
+
+        return result;
     }
 };
