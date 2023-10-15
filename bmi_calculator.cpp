@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// main func
 int main() {
   float weight, height, bmi;
 
