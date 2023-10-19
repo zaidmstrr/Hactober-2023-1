@@ -1,0 +1,85 @@
+#include <iostream>
+#include <stdexcept>
+
+template <typename T>
+class Node {
+public:
+    T data;
+    Node* next;
+    Node(const T& data) : data(data), next(nullptr) {}
+};
+
+template <typename T>
+class LinkedList {
+private:
+    Node<T>* head;
+public:
+    LinkedList() : head(nullptr) {}
+
+    ~LinkedList() {
+        while (head) {
+            Node<T>* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    void insert(const T& data) {
+        Node<T>* newNode = new Node<T>(data);
+        if (!head) {
+            head = newNode;
+        }
+        else {
+            Node<T>* current = head;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+
+    void display() {
+        Node<T>* current = head;
+        while (current) {
+            std::cout << current->data << " -> ";
+            current = current->next;
+        }
+        std::cout << "nullptr" << std::endl;
+    }
+
+    T getAt(int index) {
+        if (index < 0) {
+            throw std::out_of_range("Index out of bounds");
+        }
+        Node<T>* current = head;
+        int i = 0;
+        while (current) {
+            if (i == index) {
+                return current->data;
+            }
+            current = current->next;
+            i++;
+        }
+        throw std::out_of_range("Index out of bounds");
+    }
+};
+
+int main() {
+    LinkedList<int> myList;
+
+    try {
+        myList.insert(10);
+        myList.insert(20);
+        myList.insert(30);
+        myList.display();
+
+        int value = myList.getAt(1);
+        std::cout << "Value at index 1: " << value << std::endl;
+
+        int invalidValue = myList.getAt(5); // This will throw an exception
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
