@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+
+int binaryToDecimal(const std::string& binaryStr) {
+    int decimalNum = 0;
+    int power = 0;
+
+    for (int i = binaryStr.length() - 1; i >= 0; i--) {
+        if (binaryStr[i] == '1') {
+            decimalNum += static_cast<int>(std::pow(2, power));
+        }
+        power++;
+    }
+
+    return decimalNum;
+}
+
+int main() {
+    std::string binaryStr;
+    
+    std::cout << "Enter a binary number: ";
+    std::cin >> binaryStr;
+
+    int decimalNum = binaryToDecimal(binaryStr);
+
+    std::cout << "The decimal equivalent of " << binaryStr << " is: " << decimalNum << std::endl;
+
+    return 0;
+}
