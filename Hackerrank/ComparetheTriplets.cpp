@@ -1,4 +1,3 @@
-<?php
 
 // Alice and Bob each created one problem for HackerRank. A reviewer rates the two challenges, awarding points on a scale from 1 to 100 for three categories: problem clarity, originality, and difficulty.
 
@@ -39,19 +38,28 @@
 // The second line contains 3 space-separated integers, b[0], b[1], and b[2], the respective values in triplet b.
 
 
-function compareTriplets($a, $b) {
-    $acount = 0;
-    $bcount = 0;
-    foreach($a as $akey=> $alice){
-        foreach($b as $bkey=> $bob){
-            if($akey == $bkey){
-                if($alice > $bob){
-                    $acount++;
-                }else if($alice < $bob){
-                    $bcount++;
-                }
-            }
+#include <iostream>
+#include <vector>
+#include <utility> // for pair
+using namespace std;
+
+pair<int, int> compareTriplets(const vector<int>& a, const vector<int>& b) {
+    int acount = 0, bcount = 0;
+    for (size_t i = 0; i < a.size() && i < b.size(); ++i) {
+        if (a[i] > b[i]) {
+            acount++;
+        } else if (a[i] < b[i]) {
+            bcount++;
         }
     }
-    return [$acount,$bcount];
+    return make_pair(acount, bcount);
+}
+
+// Main function for testing
+int main() {
+    vector<int> a = {17, 28, 30};
+    vector<int> b = {99, 16, 8};
+    pair<int, int> result = compareTriplets(a, b);
+    cout << "Alice's score: " << result.first << ", Bob's score: " << result.second << endl;
+    return 0;
 }
