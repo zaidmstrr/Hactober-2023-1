@@ -1,0 +1,81 @@
+#include <iostream>
+#include <vector>
+
+class HashMap {
+private:
+    std::vector<std::pair<int, int>> table;
+    int capacity;
+
+    int hash(int key) {
+        return key % capacity;
+    }
+
+public:
+    HashMap(int initial_capacity = 10) {
+        capacity = initial_capacity;
+        table = std::vector<std::pair<int, int>>(capacity, std::make_pair(-1, -1));
+    }
+
+    void insert(int key, int value) {
+        int index = hash(key);
+
+        while (table[index].first != -1) {
+            if (table[index].first == key) {
+                // Key already exists, update the value
+                table[index].second = value;
+                return;
+            }
+
+            // Linear probing
+            index = (index + 1) % capacity;
+        }
+
+        table[index] = std::make_pair(key, value);
+    }
+
+    int find(int key) {
+        int index = hash(key);
+
+        while (table[index].first != -1) {
+            if (table[index].first == key) {
+                return table[index].second;
+            }
+
+            // Linear probing
+            index = (index + 1) % capacity;
+        }
+
+        return -1; // Key not found
+    }
+
+    void remove(int key) {
+        int index = hash(key);
+
+        while (table[index].first != -1) {
+            if (table[index].first == key) {
+                // Mark the slot as deleted
+                table[index] = std::make_pair(-1, -1);
+                return;
+            }
+
+            // Linear probing
+            index = (index + 1) % capacity;
+        }
+    }
+};
+
+int main() {
+    HashMap myMap;
+
+    myMap.insert(1, 42);
+    myMap.insert(2, 53);
+    myMap.insert(11, 89);
+
+    std::cout << "Value for key 2: " << myMap.find(2) << std::endl;
+
+    myMap.remove(2);
+
+    std::cout << "Value for key 2 after removal: " << myMap.find(2) << std::endl;
+
+    return 0;
+}
